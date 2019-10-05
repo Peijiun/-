@@ -1,0 +1,86 @@
+data=sample(1:10,5,replace = TRUE) #1:10 means 1 to ten, 從中取5
+data
+max(data)-min(data)
+mean(data)
+data-mean(data)
+sd(data) #standard deviation for population(母體) 標準差
+sd(data)*sqrt((5-1)/5) #sd一般是sample (the default)  用sample sd算pop sd  sqrt指開根號
+sd(data)*sqrt((length(data)-1)/length(data))
+length(data)
+data1=sample(1:10,5,replace=TRUE)
+data2=sample(1:10,5,replace=TRUE)
+data3=sample(1:10,5,replace=TRUE)
+data1
+data2
+data3
+sd(data1)
+sd(data2)
+sd(data3)
+max(data1)-min(data1)
+max(data2)-min(data2)
+max(data3)-min(data3)
+data4=c(1,2,3,4,5,6,7,8,9,10)
+data5=c(1,2,3,4,5,6,7,8,9,100)
+sd(data4)
+sd(data5)
+mean(data5)
+#以上講解standard deviation
+z=(142-100)/16 #IQ的mean是100, sd是16
+z
+pnorm(z) #percentile for z scores  即PR值
+z1=(112-100)/16 #try out
+pnorm(z1)
+# 以上將z score轉換成百分比 看PR值
+# 以下將百分比轉換成z score
+qnorm(.7) # 70% percentile
+z2=qnorm(.7) #因為數字很長,用個z2存起來
+z2*16+100 #計算70% 在IQ分布裡的分數
+zk=(157-100)/16 #柯文哲的IQ
+pnorm(zk)
+qnorm(.5) #mean=0
+0*16+100
+zpastme=(106-100)/16
+zpastme
+pnorm(zpastme)
+##以下談correlation
+dataa=sample(1:10,20,replace = TRUE)
+datab=sample(1:10,20,replace = TRUE)
+dataa
+datab
+cor(dataa,datab) #看dataA跟dataB的相關度
+datac=sample(1:10,20,replace = TRUE)
+cor(dataa,datac)
+datax=cbind(dataa,datab) #變成column type
+datax
+cor(datax,method="pearson") #specify method
+cor(datax) #pearson是預設,可以不用specify
+## 困難預告
+## 以下multiple regression操作
+IQ=c(110,112,118,119,122,125,127,130,132,134,136,138)
+GPA=c(1.0,1.6,1.2,2.1,2.6,1.8,2.6,2.0,3.2,2.6,3.0,3.6)
+dataY=cbind(IQ,GPA)
+dataY
+dataY=as.data.frame(dataY) # 把dataY存成frame形式 (因它只吃row的形式,不吃column form)
+linear.mod<-lm(GPA~IQ,data=dataY) #lm即linear model
+#只是取名叫linear model  
+#_~_: 告訴我想用IQ去predict GPA  
+# "<-"即"=" 把資料存進去前面而已
+dataY
+linear.mod
+#Call:
+#lm(formula = GPA ~ IQ, data = dataY)
+#
+#Coefficients:
+#(Intercept)           IQ  
+#    -7.0059       0.0741
+study=c(8,10,6,13,14,6,13,12,13,11,12,18)
+grade=cbind(dataY,study)
+grade
+grade.model<-lm(GPA~IQ+study,data=grade) #用IQ+Study去predict GPA,給的資料越多不一定r越好,要看資料之間是否真的有關聯
+grade.model
+#Call:
+#lm(formula = GPA ~ IQ + study, data = grade)
+#
+#Coefficients:
+#(Intercept)         IQ        study  
+#    -5.2492     0.0494       0.1180 
